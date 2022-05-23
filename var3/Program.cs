@@ -185,11 +185,11 @@ namespace var3
         }
         private double F(double[] x) 
         {
-            return (1 - x[0]) * (1 - x[0]) + 100 * (x[1] - x[0] * x[0]) * (x[1] - x[0] * x[0]);
+            //return (1 - x[0]) * (1 - x[0]) + 100 * (x[1] - x[0] * x[0]) * (x[1] - x[0] * x[0]);
             //return x[0] * x[0] + x[0] * x[1] + x[1] * x[1] - 6 * x[0] - 9 * x[1];
             //return 3 * x[0] * x[0] + x[0] * x[1] + 2 * x[1] * x[1] - x[0] - 4 * x[1];
             //return 4 + Math.Pow(x[0] * x[0] + x[1] * x[1], 2.0 / 3.0);
-            //return -(-x[0] * x[0] - 5 * x[1] * x[1] - 3 * x[2] * x[2] + x[0] * x[1] - 2 * x[0] * x[2] + 2 * x[1] * x[2] + 11 * x[0] + 2 * x[1] + 18 * x[2] + 10);
+            return -(-x[0] * x[0] - 5 * x[1] * x[1] - 3 * x[2] * x[2] + x[0] * x[1] - 2 * x[0] * x[2] + 2 * x[1] * x[2] + 11 * x[0] + 2 * x[1] + 18 * x[2] + 10);
         }
         public void ND()
         {
@@ -227,7 +227,7 @@ namespace var3
     {
         static void Main(string[] args)
         {
-            double[] x = { -1,0,5,6,8 };
+            double[] x = { -1,0,0 };
             MyNelderMid nd = new MyNelderMid(x);
             nd.ND();
             Console.WriteLine(nd);
