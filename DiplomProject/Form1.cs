@@ -20,23 +20,35 @@ namespace DiplomProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            double[] x = { -1, 0,0 };
+            var tmp = textBox1.Text.Split(' ').ToArray();
+            double[] x = new double[tmp.Length];
+            for(int i = 0; i < tmp.Length; i++)
+            {
+                x[i] = Double.Parse(tmp[i]);
+            }
             double k = Double.Parse(textBox2.Text);
             MyNelderMid nd = new MyNelderMid(x,k);
             nd.ND();
             for(int i = 0; i < x.Length; i++)
             {
                 dataGridView1.Columns.Add($"x{i+1}", $"x{i+1}");
+                dataGridView2.Columns.Add($"x{i + 1}", $"x{i + 1}");
             }
             dataGridView1.Columns.Add("f(x)", "f(x)");
             dataGridView1.RowCount = nd.xStore.Count;
-            for(int i = 0; i < nd.xStore.Count; i++)
+            for (int i = 0; i < nd.xStore.Count; i++)
             {
-                for(int j = 0; j < nd.xStore.ElementAt(i).Length; j++)
+                for (int j = 0; j < nd.xStore.ElementAt(i).Length; j++)
                 {
                     dataGridView1.Rows[i].Cells[j].Value = nd.xStore.ElementAt(i)[j];
                 }
             }
+            dataGridView2.RowCount = 1;
+            for (int j = 0; j < nd.xStore.Last().Length; j++)
+            {
+                dataGridView2.Rows[0].Cells[j].Value = Math.Round(nd.xStore.Last()[j],4);
+            }
+            textBox3.Text = Convert.ToString(Math.Round(nd.F(nd.xStore.Last()),4));
         }
 
         class MyNelderMid
@@ -220,7 +232,7 @@ namespace DiplomProject
                 Array.Copy(temp, x2, n);
 
             }
-            private double F(double[] x)
+            public double F(double[] x)
             {
                 //return (1 - x[0]) * (1 - x[0]) + 100 * (x[1] - x[0] * x[0]) * (x[1] - x[0] * x[0]);
                 //return x[0] * x[0] + x[0] * x[1] + x[1] * x[1] - 6 * x[0] - 9 * x[1];
@@ -273,5 +285,15 @@ namespace DiplomProject
                 return str;
             }
         }
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar)&& e.KeyChar != ',';
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != ' ';
+        }
+
     }
 }
