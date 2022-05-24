@@ -21,7 +21,8 @@ namespace DiplomProject
         private void button1_Click(object sender, EventArgs e)
         {
             double[] x = { -1, 0,0 };
-            MyNelderMid nd = new MyNelderMid(x);
+            double k = Double.Parse(textBox2.Text);
+            MyNelderMid nd = new MyNelderMid(x,k);
             nd.ND();
             for(int i = 0; i < x.Length; i++)
             {
@@ -47,11 +48,12 @@ namespace DiplomProject
             double alpha = 1;
             double beta = 0.5;
             double gamma = 2;
-            public MyNelderMid(double[] x)//передаю начальную координату
+            double k;
+            public MyNelderMid(double[] x,double k)//передаю начальную координату
             {
                 n = x.Length;
                 m = n + 1;
-                int k = 1;//шаг
+                this.k = k;//шаг
                 this.x = new double[m, n];
                 int tmp = 0;
                 for (int i = 0; i < m; i++)
