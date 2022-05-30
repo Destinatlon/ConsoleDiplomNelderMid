@@ -319,13 +319,23 @@ namespace DiplomProject
                 worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
             }
             // storing Each row and column value to excel sheet  
+            int rows = 2;
             for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
             {
                 for (int j = 0; j < dataGridView1.Columns.Count; j++)
                 {
                     worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
                 }
+                rows++;
             }
+            worksheet.Cells[rows, 1] = "Final point and value";
+            worksheet.Cells[rows, dataGridView1.Columns.Count+1] = "F(x)";
+            rows++;
+            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+            {
+                worksheet.Cells[rows, j + 1] = dataGridView2.Rows[0].Cells[j].Value;
+            }
+            worksheet.Cells[rows, dataGridView1.Columns.Count + 1] = textBox3.Text;
             // save the application  
             workbook.SaveAs("C:\\Users\\Professional\\source\\repos\\ConsoleDiplomNelderMid\\DiplomProject\\output.xls", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             MessageBox.Show("Saved successfully");
